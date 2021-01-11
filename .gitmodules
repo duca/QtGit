@@ -1,0 +1,3 @@
+[submodule "cppgit2"]
+	path = ext/cppgit2
+	url = git@github.com:p-ranav/cppgit2.git

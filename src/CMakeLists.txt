@@ -23,4 +23,4 @@ target_include_directories(QtGit PUBLIC
 find_package(QT NAMES Qt6 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
 
-target_link_libraries(QtGit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(QtGit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ssh2 ssl)
