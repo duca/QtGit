@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>896</width>
-    <height>54</height>
+    <height>383</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,30 +17,18 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="lastModiferLabel">
-       <property name="text">
-        <string/>
+      <widget class="QTableView" name="branchesTableView">
+       <property name="locale">
+        <locale language="English" country="UnitedStates"/>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lastCommitLabel">
-       <property name="text">
-        <string/>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="branchNameLabel">
-       <property name="text">
-        <string/>
+       <property name="lineWidth">
+        <number>0</number>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="changedDateLabel">
-       <property name="text">
-        <string/>
+       <property name="gridStyle">
+        <enum>Qt::NoPen</enum>
        </property>
       </widget>
      </item>
