@@ -7,17 +7,17 @@
 #include <QWidget>
 
 namespace Ui {
-class BranchItem;
+class BranchesWidget;
 }
 
-class BranchItem : public QWidget
+class BranchesWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit BranchItem(QWidget *parent = nullptr);
-    ~BranchItem();
+    explicit BranchesWidget(QWidget *parent = nullptr);
+    ~BranchesWidget();
 
 private:
-    Ui::BranchItem *ui;
+    Ui::BranchesWidget *ui;
 };

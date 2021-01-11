@@ -3,14 +3,14 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 add_executable(QtGit
-    branchitem.ui
+    brancheswidget.ui
     mainwindow.ui
 
-    include/QtGit/branchitem.hpp
+    include/QtGit/brancheswidget.hpp
     include/QtGit/mainwindow.hpp
 
     main.cpp
-    branchitem.cpp
+    brancheswidget.cpp
     mainwindow.cpp
     ${PROJECT_SOURCE_DIR}/${TS_FILES}
     )
