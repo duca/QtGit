@@ -21,5 +21,3 @@ public:
 private:
     Ui::BranchItem *ui;
 };
-
-#endif // BRANCHITEM_HPP
