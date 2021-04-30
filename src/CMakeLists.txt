@@ -2,17 +2,12 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+qt5_add_resources(QT_RESOURCES QtGit.qrc)
+
 add_executable(QtGit
-    brancheswidget.ui
-    mainwindow.ui
-
-    include/QtGit/brancheswidget.hpp
-    include/QtGit/mainwindow.hpp
-
-    main.cpp
-    brancheswidget.cpp
-    mainwindow.cpp
+    main.cpp    
     ${PROJECT_SOURCE_DIR}/${TS_FILES}
+    ${QT_RESOURCES}
     )
 
 target_include_directories(QtGit PUBLIC
@@ -20,7 +15,7 @@ target_include_directories(QtGit PUBLIC
   $<INSTALL_INTERFACE:include/QtGit>  # <prefix>/include/QtGit
 )
 
-find_package(QT NAMES Qt6 COMPONENTS Widgets LinguistTools REQUIRED)
+find_package(QT NAMES Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
 
-target_link_libraries(QtGit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ssh2 ssl)
+target_link_libraries(QtGit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Quick ssh2 ssl)

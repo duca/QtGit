@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(QtGit LANGUAGES CXX)
-
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -13,6 +12,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(OPENSSL_ROOT_DIR  "/opt/Qt/Tools/OpenSSL/binary/")
 
+find_package(Qt5 COMPONENTS Core Quick Qml Widgets)
+
+
+set(Qt5_DIR "/opt/Qt/5.15.2/gcc_64/lib/cmake")
+set(Qt5Core_DIR "/opt/Qt/5.15.2/gcc_64/lib/cmake")
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
 # They need to be set before the find_package(Qt5 ...) call.

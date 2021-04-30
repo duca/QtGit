@@ -10,13 +10,13 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class mainWindow_t : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    mainWindow_t(QWidget *parent = nullptr);
+    ~mainWindow_t();
 
 private:
     Ui::MainWindow *ui;

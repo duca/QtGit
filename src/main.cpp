@@ -3,13 +3,27 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 #include "QtGit/mainwindow.hpp"
-
 #include <QApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QQmlFileSelector>
+#include <QUrl>
+#include <QStringLiteral>
+
 
 int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+{   QApplication app(argc, argv);
+
+    QStringList selectors;
+    if (app.arguments().contains("-touch"))
+        selectors += "touch";
+
+    QQmlApplicationEngine engine;
+    QQmlFileSelector::get(&engine)->setExtraSelectors(selectors);
+
+    engine.load(QUrl(QStringLiteral("qrc:/qml/mainWindow.qml")));
+    if (engine.rootObjects().isEmpty())
+        return -1;
+
+    return app.exec();
 }
