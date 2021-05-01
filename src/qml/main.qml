@@ -1,6 +1,7 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.12
 import QtQuick.Window 2.0
+
 
 ApplicationWindow {
     id: window
@@ -11,48 +12,57 @@ ApplicationWindow {
 
     menuBar: MenuBar {
 
-        Menu {
-            title: qsTr("File")
+        FileMenu {
+            id: fileMenu
+            visible: true
 
-            Action {
+            MenuItem {
                 id: shortcuts
                 text: qsTr("Keyboard Shortcuts")
             }
-            Action {
+
+            MenuItem {
+                id: sshkey
+                text: qsTr("SSH Key")
+                onTriggered: keyfileDialog.open()
+            }
+
+            MenuItem {
                 text: qsTr("Quit")
                 onTriggered: close()
             }
         }
 
+
         Menu {
             title: qsTr("Main flow")
 
-            Action {
+            MenuItem {
                 id: commit
                 text: qsTr("Commit")
             }
 
-            Action{
+            MenuItem{
                 id: merge
                 text: qsTr("Merge")
             }
 
-            Action{
+            MenuItem{
                 id: stash
                 text: qsTr("Stash")
             }
 
-            Action {
+            MenuItem {
                 id: log
                 text: qsTr("Log")
             }
 
-            Action {
+            MenuItem {
                 id: rebase
                 text: qsTr("Rebase")
             }
 
-            Action {
+            MenuItem {
                 id: revert
                 text: qsTr("Revert")
             }
@@ -61,34 +71,34 @@ ApplicationWindow {
         Menu {
             title: qsTr("Repo Config")
 
-            Action {
+            MenuItem {
                 id: addFolder
                 text: qsTr("Add existing folder")
-                onTriggered: openDialog.open()
+             //   onTriggered: openDialog.open()
             }
 
-            Action {
+            MenuItem {
                 id: clone
                 text: qsTr("Clone")
             }
 
-            Action {
+            MenuItem {
                 id: createNew
                 text: qsTr("Create new repo")
-                onTriggered: openDialog.open()
+               // onTriggered: openDialog.open()
             }
 
-            Action {
+            MenuItem {
                 id: setRemote
                 text: qsTr("Set Remote")
-                onTriggered: saveDialog.open()
+              //  onTriggered: saveDialog.open()
             }
-            Action {
+            MenuItem {
                 id: changeRemote
                 text: qsTr("Change Remote")
             }
 
-            Action {
+            MenuItem {
                 id: submodules
                 text: qsTr("Submodules")
             }
@@ -98,15 +108,26 @@ ApplicationWindow {
         {
             title: qsTr("Help")
 
-            Action {
+            MenuItem {
                 id: about
                 text: qsTr("About")
             }
 
-            Action {
+            MenuItem {
                 id: help
-                text: qsTr("Help")
+                text: qsTr("Github")
             }
+
+        }
+        MainWindowForm
+        {
+            id: mainWindowForm
+            anchors.fill: parent
+
+    //        Layout.minimumWidth: 800
+    //        Layout.minimumHeight: 480
+    //        Layout.preferredWidth: 768
+    //        Layout.preferredHeight: 480
 
         }
     }

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     QQmlFileSelector::get(&engine)->setExtraSelectors(selectors);
 
-    engine.load(QUrl(QStringLiteral("qrc:/qml/mainWindow.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
 
