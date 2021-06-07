@@ -1,11 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/MainWindow.qml</file>
-        <file>qml/MainWindowForm.ui.qml</file>
-        <file>qml/Stage.qml</file>
-        <file>qml/StageForm.ui.qml</file>
-        <file>qml/GitLog.qml</file>
-        <file>qml/GitLogForm.ui.qml</file>
+        <file>qml/StageWindow.qml</file>
+        <file>qml/StageWindowForm.ui.qml</file>
+        <file>qml/KeyManagement.qml</file>
+        <file>qml/KeyManagementForm.ui.qml</file>
     </qresource>
 </RCC>

@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.0
+import QtQuick.Layouts 1.12
 
 
 ApplicationWindow {
@@ -12,26 +13,26 @@ ApplicationWindow {
 
     menuBar: MenuBar {
 
-        FileMenu {
-            id: fileMenu
-            visible: true
+        //        FileMenu {
+        //            id: fileMenu
+        //            visible: true
 
-            MenuItem {
-                id: shortcuts
-                text: qsTr("Keyboard Shortcuts")
-            }
+        //            MenuItem {
+        //                id: shortcuts
+        //                text: qsTr("Keyboard Shortcuts")
+        //            }
 
-            MenuItem {
-                id: sshkey
-                text: qsTr("SSH Key")
-                onTriggered: keyfileDialog.open()
-            }
+        //            MenuItem {
+        //                id: sshkey
+        //                text: qsTr("SSH Key")
+        //                onTriggered: keyfileDialog.open()
+        //            }
 
-            MenuItem {
-                text: qsTr("Quit")
-                onTriggered: close()
-            }
-        }
+        //            MenuItem {
+        //                text: qsTr("Quit")
+        //                onTriggered: close()
+        //            }
+        //        }
 
 
         Menu {
@@ -74,7 +75,7 @@ ApplicationWindow {
             MenuItem {
                 id: addFolder
                 text: qsTr("Add existing folder")
-             //   onTriggered: openDialog.open()
+                //   onTriggered: openDialog.open()
             }
 
             MenuItem {
@@ -85,13 +86,13 @@ ApplicationWindow {
             MenuItem {
                 id: createNew
                 text: qsTr("Create new repo")
-               // onTriggered: openDialog.open()
+                // onTriggered: openDialog.open()
             }
 
             MenuItem {
                 id: setRemote
                 text: qsTr("Set Remote")
-              //  onTriggered: saveDialog.open()
+                //  onTriggered: saveDialog.open()
             }
             MenuItem {
                 id: changeRemote
@@ -119,16 +120,16 @@ ApplicationWindow {
             }
 
         }
-        MainWindowForm
-        {
-            id: mainWindowForm
-            anchors.fill: parent
+    }
 
-    //        Layout.minimumWidth: 800
-    //        Layout.minimumHeight: 480
-    //        Layout.preferredWidth: 768
-    //        Layout.preferredHeight: 480
-
-        }
+    MainWindowForm
+    {
+        id: mainForm
+        anchors.fill: parent
+        Layout.minimumWidth: 800
+        Layout.minimumHeight: 480
+        Layout.preferredWidth: 768
+        Layout.preferredHeight: 480
+        visible: true
     }
 }
