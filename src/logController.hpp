@@ -4,11 +4,15 @@
 
 #pragma once
 
+#include "logModel.hpp"
+
 #include "cppgit2/repository.hpp"
 #include <QString>
 
 #include <QObject>
 #include <QSharedPointer>
+
+namespace qtgit {
 
 class logController_t : public QObject
 {
@@ -21,5 +25,11 @@ class logController_t : public QObject
     void handleUpdateLog () const;
 
 signals:
-    void
+    void onLogReport (logModel_t const &commits_) const;
+
+private:
+	class privateData_t;
+	std::unique_ptr<privateData_t> m_d;
 };
+
+}
