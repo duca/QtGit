@@ -19,6 +19,7 @@ class logController_t : public QObject
     Q_OBJECT
 
     explicit logController_t(QObject *const parent_);
+	virtual ~logController_t ();
 
     bool init (cppgit2::repository const& repo_);
 
@@ -28,7 +29,7 @@ signals:
     void onLogReport (logModel_t const &commits_) const;
 
 private:
-	class privateData_t;
+	struct privateData_t;
 	std::unique_ptr<privateData_t> m_d;
 };
 

@@ -122,14 +122,25 @@ ApplicationWindow {
         }
     }
 
-    MainWindowForm
-    {
-        id: mainForm
-        anchors.fill: parent
-        Layout.minimumWidth: 800
-        Layout.minimumHeight: 480
-        Layout.preferredWidth: 768
-        Layout.preferredHeight: 480
-        visible: true
-    }
-}
+        GitLogView {
+            id: gitView
+            //anchors.fill: parent
+            /*
+            model: GitLogModel*/
+//            onPressAndHold: {
+//                currentContact = index
+//                contactMenu.open()
+//            }
+        }
+
+//     MainWindowForm
+//     {
+//         id: mainForm
+//         anchors.fill: parent
+//         Layout.minimumWidth: 800
+//         Layout.minimumHeight: 480
+//         Layout.preferredWidth: 768
+//         Layout.preferredHeight: 480
+//         visible: true
+//     }
+ }

@@ -5,5 +5,7 @@
         <file>qml/StageWindowForm.ui.qml</file>
         <file>qml/KeyManagement.qml</file>
         <file>qml/KeyManagementForm.ui.qml</file>
+        <file>qml/GitLogDelegate.ui.qml</file>
+        <file>qml/GitLogView.qml</file>
     </qresource>
 </RCC>

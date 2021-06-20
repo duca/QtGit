@@ -7,12 +7,11 @@
 
 using namespace qtgit;
 
-class logController_t::privateDate_t
+struct logController_t::privateData_t
 {
-public:
-	
 };
 
+logController_t::~logController_t () = default;
 
 logController_t::logController_t(QObject *const parent_) : QObject (parent_)
 {
@@ -20,8 +19,10 @@ logController_t::logController_t(QObject *const parent_) : QObject (parent_)
 }
 bool logController_t::init (cppgit2::repository const& repo_)
 {
-
+	return false;
 }
+
 void logController_t::handleUpdateLog () const
 {
 }
+

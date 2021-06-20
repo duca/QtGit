@@ -4,11 +4,9 @@
 
 #pragma once
 
-
 #include <QObject>
 #include <QString>
-#include <qnamespace.h>
-#include <qobjectdefs.h>
+#include <QAbstractListModel>
 
 namespace qtgit {
 
@@ -18,12 +16,14 @@ class logModel_t : public QAbstractListModel
 
 public:
 	enum logModelRole {
-		idRole = Qt::DisplayRole,
-		descriptionRole = Qt::DisplayRole,
+        idRole = Qt::DisplayRole,
+        longIdRole,
+		descriptionRole,
 		userNameRole,
 		userEmailRole,
 		commitDateRole
 	};
+	Q_ENUM (logModelRole);
 
 	struct logItem_t {
 		QString id;
@@ -33,16 +33,20 @@ public:
 		QString date;
 	};
 
+	virtual ~logModel_t ();
+
 	explicit logModel_t (QObject *const parent_ = nullptr);
 
-	int rowCount (const QModelIndex & = QModelIndex()) override const;
-	QVariant data (const QModelIndex &index_, int role_ = Qt::DisplayRole) override const;
-	QHash<int, QByteArray> roleNames () override const;
+	logModel_t (logModel_t const &other_);
+
+	int rowCount (const QModelIndex & = QModelIndex()) const override;
+	QVariant data (const QModelIndex &index_, int role_ = Qt::DisplayRole) const override;
+	QHash<int, QByteArray> roleNames () const override;
 	Q_INVOKABLE QVariantMap get (int row_) const;
 
 	logModel_t (logModel_t &&other_) noexcept;
 
-	void appendCommit (logItem_t const& item_);
+	Q_INVOKABLE void appendCommit (logItem_t const& item_);
 
 	QList<logItem_t> allCommits () const;
 

@@ -15,12 +15,11 @@ set(OPENSSL_ROOT_DIR  "/opt/Qt/Tools/OpenSSL/binary/")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_C_COMPILER "/usr/bin/clang")
 
-set(Qt5_DIR "/opt/Qt/5.15.2/gcc_64/lib/cmake")
-set(Qt5Core_DIR "/opt/Qt/5.15.2/gcc_64/lib/cmake")
+project(QtGit VERSION 1.0 LANGUAGES CXX)
 
-project(QtGit LANGUAGES CXX)
+set(CMAKE_PREFIX_PATH "/opt/Qt/6.1.1/gcc_64/lib/cmake")
 
-find_package(Qt5 COMPONENTS Core Quick Qml Widgets)
+find_package(Qt6 COMPONENTS Widgets LinguistTools Quick REQUIRED)
 add_subdirectory(ext/cppgit2)
 add_subdirectory(src)
 

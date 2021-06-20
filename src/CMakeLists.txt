@@ -2,9 +2,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-qt5_add_resources(QT_RESOURCES QtGit.qrc)
-
 add_executable(QtGit
+   QtGit.qrc
     main.cpp    
     logModel.cpp
     logModel.hpp
@@ -20,7 +19,6 @@ target_include_directories(QtGit PUBLIC
   $<INSTALL_INTERFACE:include/QtGit>  # <prefix>/include/QtGit
 )
 
-find_package(QT NAMES Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
+find_package(Qt6 COMPONENTS Widgets LinguistTools Quick REQUIRED)
 
 target_link_libraries(QtGit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Quick ssh2 ssl cppgit2 git2)
