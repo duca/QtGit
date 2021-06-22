@@ -13,27 +13,26 @@ ApplicationWindow {
 
     menuBar: MenuBar {
 
-        //        FileMenu {
-        //            id: fileMenu
-        //            visible: true
+        Menu {
+            id: fileMenu
+            title: qsTr("File")
 
-        //            MenuItem {
-        //                id: shortcuts
-        //                text: qsTr("Keyboard Shortcuts")
-        //            }
+            MenuItem {
+                id: shortcuts
+                text: qsTr("Keyboard Shortcuts")
+            }
 
-        //            MenuItem {
-        //                id: sshkey
-        //                text: qsTr("SSH Key")
-        //                onTriggered: keyfileDialog.open()
-        //            }
+            MenuItem {
+                id: sshkey
+                text: qsTr("SSH Key")
+                onTriggered: keyfileDialog.open()
+            }
 
-        //            MenuItem {
-        //                text: qsTr("Quit")
-        //                onTriggered: close()
-        //            }
-        //        }
-
+            MenuItem {
+                text: qsTr("Quit")
+                onTriggered: close()
+            }
+        }
 
         Menu {
             title: qsTr("Main flow")
@@ -126,16 +125,10 @@ ApplicationWindow {
         id: logView
         anchors.fill: parent
         model: GitLogModel
-    }
-
-//     MainWindowForm
-//     {
-//         id: mainForm
-//         anchors.fill: parent
-//         Layout.minimumWidth: 800
-//         Layout.minimumHeight: 480
-//         Layout.preferredWidth: 768
-//         Layout.preferredHeight: 480
-//         visible: true
-//     }
+         Layout.minimumWidth: 800
+         Layout.minimumHeight: 480
+         Layout.preferredWidth: 768
+         Layout.preferredHeight: 480
+         visible: true
+     }
  }
