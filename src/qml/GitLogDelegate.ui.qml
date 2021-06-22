@@ -9,21 +9,25 @@ ItemDelegate {
 
     contentItem: GridLayout {
         columnSpacing: 0
-        rowSpacing: 0
+        rowSpacing: 5
         columns: 2
         width: 40
 
-        Label {
-            text: commitId
-            font.bold: true
-            elide: Text.AlignLeft
-            Layout.fillWidth: false
-        }
+        GridLayout {
+            id: headerGrid
+            visible: true
+            Label {
+                text: commitId
+                font.bold: true
+                elide: Text.AlignLeft
+                Layout.fillWidth: false
+            }
 
-        Label {
-            text: description
-            elide: Text.ElideRight
-            Layout.fillWidth: false
+            Label {
+                text: description
+                elide: Text.ElideRight
+                Layout.fillWidth: false
+            }
         }
 
         GridLayout {
@@ -39,6 +43,17 @@ ItemDelegate {
 
             Label {
                 text: longCommitId
+                font.bold: true
+                elide: Text.ElideRight
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: qsTr("Description:")
+            }
+
+            Label {
+                text: description
                 font.bold: true
                 elide: Text.ElideRight
                 Layout.fillWidth: true
@@ -76,6 +91,11 @@ ItemDelegate {
             PropertyChanges {
                 target: grid
                 visible: true
+            }
+
+            PropertyChanges {
+                target: headerGrid
+                visible: false
             }
         }
     ]
