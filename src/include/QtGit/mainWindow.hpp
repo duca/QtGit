@@ -4,20 +4,23 @@
 
 #pragma once
 
-#include <QMainWindow>
+#include <QObject>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace qtgit {
 
-class mainWindow_t : public QMainWindow
+class mainWindow_t : public QObject
 {
     Q_OBJECT
 
 public:
-    mainWindow_t(QWidget *parent = nullptr);
+    explicit mainWindow_t(QString qmlPath_, QObject *parent_ = nullptr);
     ~mainWindow_t();
 
+    bool init();
+
 private:
-    Ui::MainWindow *ui;
+    struct privateData_t;
+    std::unique_ptr<privateData_t> m_d;
 };
+
+}

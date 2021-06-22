@@ -8,19 +8,22 @@ ItemDelegate {
     checkable: true
 
     contentItem: GridLayout {
+        columnSpacing: 0
+        rowSpacing: 0
         columns: 2
+        width: 40
 
         Label {
             text: commitId
             font.bold: true
-            elide: Text.ElideRight
+            elide: Text.AlignLeft
             Layout.fillWidth: false
         }
 
         Label {
             text: description
             elide: Text.ElideRight
-            Layout.fillWidth: true
+            Layout.fillWidth: false
         }
 
         GridLayout {
@@ -30,10 +33,8 @@ ItemDelegate {
             columns: 2
             rowSpacing: 10
             columnSpacing: 10
-
             Label {
                 text: qsTr("Commit:")
-                Layout.leftMargin: 60
             }
 
             Label {
@@ -45,7 +46,6 @@ ItemDelegate {
 
             Label {
                 text: qsTr("UserName:")
-                Layout.leftMargin: 60
             }
 
             Label {
@@ -57,7 +57,6 @@ ItemDelegate {
 
             Label {
                 text: qsTr("Email:")
-                Layout.leftMargin: 60
             }
 
             Label {

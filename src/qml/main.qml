@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.0
 import QtQuick.Layouts 1.12
-
+import com.test.LogModel 1.0
 
 ApplicationWindow {
     id: window
@@ -122,16 +122,11 @@ ApplicationWindow {
         }
     }
 
-        GitLogView {
-            id: gitView
-            //anchors.fill: parent
-            /*
-            model: GitLogModel*/
-//            onPressAndHold: {
-//                currentContact = index
-//                contactMenu.open()
-//            }
-        }
+    GitLogView {
+        id: logView
+        anchors.fill: parent
+        model: GitLogModel
+    }
 
 //     MainWindowForm
 //     {

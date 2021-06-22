@@ -17,13 +17,16 @@ namespace qtgit {
 class logController_t : public QObject
 {
     Q_OBJECT
+public:
 
-    explicit logController_t(QObject *const parent_);
+    explicit logController_t(QObject *const parent_ = nullptr);
 	virtual ~logController_t ();
 
     bool init (cppgit2::repository const& repo_);
 
     void handleUpdateLog () const;
+
+    void show ();
 
 signals:
     void onLogReport (logModel_t const &commits_) const;

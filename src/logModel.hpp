@@ -40,13 +40,15 @@ public:
 	logModel_t (logModel_t const &other_);
 
 	int rowCount (const QModelIndex & = QModelIndex()) const override;
-	QVariant data (const QModelIndex &index_, int role_ = Qt::DisplayRole) const override;
-	QHash<int, QByteArray> roleNames () const override;
-	Q_INVOKABLE QVariantMap get (int row_) const;
+
+    QVariant data (const QModelIndex &index_, int role_ = Qt::DisplayRole) const override;
+
+    QHash<int, QByteArray> roleNames () const override;
 
 	logModel_t (logModel_t &&other_) noexcept;
 
 	Q_INVOKABLE void appendCommit (logItem_t const& item_);
+    Q_INVOKABLE QVariantMap get (int row_) const;
 
 	QList<logItem_t> allCommits () const;
 
