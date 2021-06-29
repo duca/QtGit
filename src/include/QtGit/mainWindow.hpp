@@ -5,6 +5,7 @@
 #pragma once
 
 #include <QObject>
+#include <memory>
 
 namespace qtgit {
 
@@ -18,9 +19,12 @@ public:
 
     bool init();
 
+public slots:
+    void handleLoadFolder (QString path_);
+
 private:
     struct privateData_t;
-    std::unique_ptr<privateData_t> m_d;
+    std::unique_ptr<privateData_t> m_d;    
 };
 
 }

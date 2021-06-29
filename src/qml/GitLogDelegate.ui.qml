@@ -24,7 +24,7 @@ ItemDelegate {
             }
 
             Label {
-                text: description
+                text: summary
                 elide: Text.ElideRight
                 Layout.fillWidth: false
             }
@@ -49,12 +49,12 @@ ItemDelegate {
             }
 
             Label {
-                text: qsTr("Description:")
+                text: qsTr("Summary:")
                 font.bold: true
             }
 
             Label {
-                text: description
+                text: summary
                 elide: Text.ElideRight
                 Layout.fillWidth: true
             }
@@ -77,6 +77,17 @@ ItemDelegate {
 
             Label {
                 text: userEmail
+                elide: Text.ElideRight
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: qsTr("Body:")
+                font.bold: true
+            }
+
+            Label {
+                text: body
                 elide: Text.ElideRight
                 Layout.fillWidth: true
             }

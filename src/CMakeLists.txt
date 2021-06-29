@@ -21,6 +21,6 @@ target_include_directories(QtGit PUBLIC
   $<INSTALL_INTERFACE:include/QtGit>  # <prefix>/include/QtGit
 )
 
-find_package(Qt6 COMPONENTS Widgets LinguistTools Quick REQUIRED)
+find_package(Qt6 COMPONENTS Widgets LinguistTools Quick QuickControls2 REQUIRED)
 
-target_link_libraries(QtGit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Quick ssh2 ssl cppgit2 git2)
+target_link_libraries(QtGit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::QuickControls2 ssh2 ssl cppgit2 git2)

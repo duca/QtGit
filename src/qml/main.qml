@@ -1,18 +1,19 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Window 2.0
-import QtQuick.Layouts 1.12
+import QtQuick.Dialogs
+import QtQuick.Controls
 import com.test.LogModel 1.0
+import QtQuick
+import QtQuick.Layouts
 
 ApplicationWindow {
-    id: window
+    id: appWindow
     visible: true
     width: 640
     height: 480
     title: qsTr("QtGit - a Git client using Qt")
 
-    menuBar: MenuBar {
+    signal loadGitFolder(path: string)
 
+    menuBar: MenuBar {
         Menu {
             id: fileMenu
             title: qsTr("File")
@@ -36,6 +37,7 @@ ApplicationWindow {
 
         Menu {
             title: qsTr("Main flow")
+            id: mainFlowMenu
 
             MenuItem {
                 id: commit
@@ -70,11 +72,12 @@ ApplicationWindow {
 
         Menu {
             title: qsTr("Repo Config")
+            id:repoConfig
 
             MenuItem {
                 id: addFolder
                 text: qsTr("Add existing folder")
-                //   onTriggered: openDialog.open()
+                onTriggered: repoDialog.open()
             }
 
             MenuItem {
@@ -103,10 +106,10 @@ ApplicationWindow {
                 text: qsTr("Submodules")
             }
         }
-
         Menu
         {
             title: qsTr("Help")
+            id: helpMenu
 
             MenuItem {
                 id: about
@@ -117,18 +120,41 @@ ApplicationWindow {
                 id: help
                 text: qsTr("Github")
             }
-
         }
+    }
+
+    Label {
+        id: noRepoLabel
+        text: qsTr("No repository configured")
+        visible: true
     }
 
     GitLogView {
         id: logView
         anchors.fill: parent
         model: GitLogModel
-         Layout.minimumWidth: 800
-         Layout.minimumHeight: 480
-         Layout.preferredWidth: 768
-         Layout.preferredHeight: 480
-         visible: true
-     }
- }
+        visible: false
+    }
+
+    Dialog {
+        id: repoDialog
+        RowLayout {
+
+            Label {
+                text: qsTr ("Repository Path:")
+            }
+            TextField {
+                id: pathInput
+                placeholderText: qsTr("")
+            }
+        }
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            logView.visible = true
+            noRepoLabel.visible = false
+            loadGitFolder(pathInput.text)
+        }
+    }
+
+}
+

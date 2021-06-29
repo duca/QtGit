@@ -22,11 +22,12 @@ public:
     explicit logController_t(QObject *const parent_ = nullptr);
 	virtual ~logController_t ();
 
-    bool init (cppgit2::repository const& repo_);
-
-    void handleUpdateLog () const;
+    void loadPath (QString repo_);
+    //void loadPath (cppgit2::repository& repo_);
 
     void show ();
+
+    logModel_t* model ();
 
 signals:
     void onLogReport (logModel_t const &commits_) const;

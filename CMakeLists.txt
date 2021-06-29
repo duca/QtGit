@@ -17,9 +17,10 @@ set(CMAKE_C_COMPILER "/usr/bin/clang")
 
 project(QtGit VERSION 1.0 LANGUAGES CXX)
 
-set(CMAKE_PREFIX_PATH "/opt/Qt/6.1.1/gcc_64/lib/cmake")
+set(CMAKE_PREFIX_PATH "/opt/Qt/6.2.0/gcc_64/lib/cmake")
 
 find_package(Qt6 COMPONENTS Widgets LinguistTools Quick REQUIRED)
+
 add_subdirectory(ext/cppgit2)
 add_subdirectory(src)
 

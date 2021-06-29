@@ -18,26 +18,28 @@ public:
 	enum logModelRole {
         idRole = Qt::DisplayRole,
         longIdRole,
-		descriptionRole,
+        summaryRole,
 		userNameRole,
 		userEmailRole,
-		commitDateRole
+        commitDateRole,
+        bodyRole
 	};
 	Q_ENUM (logModelRole);
 
 	struct logItem_t {
 		QString id;
-		QString description;
+        QString summary;
 		QString userName;
 		QString userEmail;
 		QString date;
+        QString body;
 	};
 
 	virtual ~logModel_t ();
 
 	explicit logModel_t (QObject *const parent_ = nullptr);
-
 	logModel_t (logModel_t const &other_);
+    logModel_t (logModel_t &&other_) noexcept;
 
 	int rowCount (const QModelIndex & = QModelIndex()) const override;
 
@@ -45,15 +47,17 @@ public:
 
     QHash<int, QByteArray> roleNames () const override;
 
-	logModel_t (logModel_t &&other_) noexcept;
+    Q_INVOKABLE bool removeRows(int row_, int count_, const QModelIndex &parent_ = QModelIndex()) override;
 
-	Q_INVOKABLE void appendCommit (logItem_t const& item_);
     Q_INVOKABLE QVariantMap get (int row_) const;
 
-	QList<logItem_t> allCommits () const;
+    void appendCommit (logItem_t &&item_);
+
+    QList<logItem_t> allCommits () const;
+    void clear ();
 
 private:
-	QList<logItem_t> m_commits;
+    QList<logItem_t> m_commits;
 };
 }
 

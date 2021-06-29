@@ -5,8 +5,13 @@
 #include "logController.hpp"
 #include "logModel.hpp"
 
+#include "cppgit2/repository.hpp"
+using namespace cppgit2;
+
 #include "QtQuick/QQuickView"
 #include <QQmlContext>
+#include <QSharedPointer>
+#include <QDateTime>
 
 using namespace qtgit;
 
@@ -19,23 +24,8 @@ struct logController_t::privateData_t
 logController_t::~logController_t () = default;
 
 logController_t::logController_t(QObject *const parent_) : QObject (parent_)
-{
-	qRegisterMetaType<logModel_t>();
+{	
     m_d = std::make_unique<logController_t::privateData_t>();
-
-    qtgit::logModel_t::logItem_t item;
-    item.id = "1weqwsadsa4wr423r2sadfcsdf";
-    item.description = "teste";
-    item.userEmail = "duca@github.com";
-    item.userName = "duca";
-    item.date = "12/12/12";
-    m_d->model.appendCommit (item);
-    m_d->model.appendCommit (item);
-    m_d->model.appendCommit (item);
-    m_d->model.appendCommit (item);
-
-    m_d->view.rootContext ()->setContextProperty ("GitLogModel", &m_d->model);
-    m_d->view.setSource (QUrl("qrc:/qml/GitLogView.qml"));
 }
 
 void logController_t::show ()
@@ -43,12 +33,26 @@ void logController_t::show ()
     m_d->view.show ();
 }
 
-bool logController_t::init (cppgit2::repository const& repo_)
+//void logController_t::loadPath(cppgit2::repository& repo_)
+void logController_t::loadPath(QString repo_)
 {
-	return false;
+    m_d->model.clear ();
+
+    auto repo = cppgit2::repository::open(repo_.toStdString ());
+
+    repo.for_each_commit ([this](cppgit2::commit const& c_){
+        qtgit::logModel_t::logItem_t item;
+        item.id = QString::fromStdString (c_.id().to_hex_string (8));
+        item.userName = QString::fromStdString(c_.committer ().name ());
+        item.userEmail = QString::fromStdString(c_.committer ().email ());
+        item.summary = QString::fromStdString(c_.summary ());
+        item.body = QString::fromStdString (c_.body ());
+        item.date = QDateTime::fromMSecsSinceEpoch (c_.time (), Qt::LocalTime, c_.time_offset () * 60).toString ();
+        m_d->model.appendCommit (std::move(item));
+    });
 }
 
-void logController_t::handleUpdateLog () const
+logModel_t* logController_t::model ()
 {
+    return &m_d->model;
 }
-
