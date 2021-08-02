@@ -36,7 +36,7 @@ QVariant logModel_t::data(const QModelIndex &index_, int role_) const
         case userNameRole: return m_commits.at(index_.row()).userName;
         case userEmailRole: return m_commits.at(index_.row()).userEmail;
         case commitDateRole: return m_commits.at(index_.row()).date;
-        case bodyRole: return m_commits.at(index_.row()).body;
+        case typeRole: return m_commits.at(index_.row()).type;
         default: return QVariant();
         }
     return QVariant();
@@ -56,7 +56,7 @@ QHash<int, QByteArray> logModel_t::roleNames() const
         {userNameRole, "userName"},
         {userEmailRole, "userEmail"},
         {commitDateRole, "commitDate"},
-        {bodyRole, "body"}
+        {typeRole, "type"}
     };
     return roles;
 }
@@ -73,7 +73,7 @@ QVariantMap logModel_t::get(int row_) const
         {"userName", item.userName},
         {"userEmail", item.userEmail},
         {"commitDate", item.date},
-        {"body", item.body}};
+        {"type", item.type}};
 }
 
 void logModel_t::appendCommits(QList<logItem_t> &&items_)

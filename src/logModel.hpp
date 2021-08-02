@@ -22,7 +22,7 @@ public:
 		userNameRole,
 		userEmailRole,
         commitDateRole,
-        bodyRole
+        typeRole,
 	};
 	Q_ENUM (logModelRole);
 
@@ -32,7 +32,7 @@ public:
 		QString userName;
 		QString userEmail;
 		QString date;
-        QString body;
+        QString type;
 	};
 
 	virtual ~logModel_t ();

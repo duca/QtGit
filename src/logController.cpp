@@ -51,14 +51,22 @@ void logController_t::loadPath(QString repo_)
 
     auto repo = cppgit2::repository::open(repo_.toStdString ());
 
-    repo.for_each_commit ([&commits, this](cppgit2::commit const& c_){
+    repo.for_each_commit ([&commits](cppgit2::commit const& c_){
         qtgit::logModel_t::logItem_t item;
         item.id = QString::fromStdString (c_.id().to_hex_string (8));
         item.userName = QString::fromStdString(c_.committer ().name ());
         item.userEmail = QString::fromStdString(c_.committer ().email ());
         item.summary = QString::fromStdString(c_.summary ());
-        item.body = QString::fromStdString (c_.body ());        
+        item.type = "Commit";
         item.date = QDateTime::fromMSecsSinceEpoch (c_.time (), Qt::LocalTime, c_.time_offset () * 60).toString ();
+        commits.emplaceBack(std::move(item));
+    });
+
+    repo.for_each_tag([&commits, &repo](std::string const &name_, cppgit2::oid const &id_){
+        qtgit::logModel_t::logItem_t item;
+        item.id = QString::fromStdString (id_.to_hex_string (8));
+        item.summary = QString::fromStdString(name_);
+        item.type = "Tag";
         commits.emplaceBack(std::move(item));
     });
 

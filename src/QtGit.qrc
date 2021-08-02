@@ -7,5 +7,6 @@
         <file>qml/KeyManagementForm.ui.qml</file>
         <file>qml/GitLogDelegate.ui.qml</file>
         <file>qml/GitLogView.qml</file>
+        <file>qml/GitLogHeaderDelegate.qml</file>
     </qresource>
 </RCC>

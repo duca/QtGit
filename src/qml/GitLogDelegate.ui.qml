@@ -80,17 +80,6 @@ ItemDelegate {
                 elide: Text.ElideRight
                 Layout.fillWidth: true
             }
-
-            Label {
-                text: qsTr("Body:")
-                font.bold: true
-            }
-
-            Label {
-                text: body
-                elide: Text.ElideRight
-                Layout.fillWidth: true
-            }
         }
     }
 
