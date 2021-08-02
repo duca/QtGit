@@ -30,11 +30,6 @@ logController_t::logController_t(QObject *const parent_) : QObject (parent_)
     m_d = std::make_unique<logController_t::privateData_t>();
 }
 
-void logController_t::show ()
-{
-    m_d->view.show ();
-}
-
 //void logController_t::loadPath(cppgit2::repository& repo_)
 void logController_t::loadPath(QString repo_)
 {
@@ -71,8 +66,6 @@ void logController_t::loadPath(QString repo_)
     });
 
     m_d->model.appendCommits (std::move(commits));
-
-    emit onLogReport (m_d->model);
 }
 
 logModel_t* logController_t::model ()

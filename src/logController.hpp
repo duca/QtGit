@@ -14,23 +14,39 @@
 
 namespace qtgit {
 
+/**
+ * @brief The logController_t class that process commits of a given repository
+ */
 class logController_t : public QObject
 {
     Q_OBJECT
 public:
 
+    /**
+     * @brief logController_t constructor
+     * @param parent_ QObject pointer
+     */
     explicit logController_t(QObject *const parent_ = nullptr);
-	virtual ~logController_t ();
 
+    virtual ~logController_t ();
+
+    /**
+     * @brief loadPath - reads all the commits in a repository path
+     * @param repo_ path
+     */
     void loadPath (QString repo_);
-    //void loadPath (cppgit2::repository& repo_);
 
-    void show ();
-
+    /**
+     * @brief model address. Used to connect C++ code with QML
+     * @return model address
+     */
     logModel_t* model ();
 
 signals:
-    void onLogReport (logModel_t const &commits_) const;
+    /**
+     * @brief onError - report error messages
+     * @param error_ message
+     */
     void onError (QString error_) const;
 
 private:
