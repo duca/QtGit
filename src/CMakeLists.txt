@@ -9,7 +9,7 @@ add_executable(QtGit
     logModel.cpp
     logModel.hpp
     logController.cpp
-    logController.hpp    
+    logController.hpp
     ${PROJECT_SOURCE_DIR}/${TS_FILES}
     ${QT_RESOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/include/QtGit/mainWindow.hpp

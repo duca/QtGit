@@ -47,11 +47,9 @@ public:
 
     QHash<int, QByteArray> roleNames () const override;
 
-    Q_INVOKABLE bool removeRows(int row_, int count_, const QModelIndex &parent_ = QModelIndex()) override;
-
     Q_INVOKABLE QVariantMap get (int row_) const;
 
-    void appendCommit (logItem_t &&item_);
+    void appendCommits (QList<logItem_t> &&items_);
 
     QList<logItem_t> allCommits () const;
     void clear ();

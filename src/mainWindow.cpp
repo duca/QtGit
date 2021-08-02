@@ -9,6 +9,7 @@
 
 #include "cppgit2/repository.hpp"
 
+#include <QFileDialog>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQmlFileSelector>
@@ -22,6 +23,7 @@ struct mainWindow_t::privateData_t
     QQmlApplicationEngine engine;
     QUrl qmlPath;
     cppgit2::repository repository;
+    QFileDialog repoDialog;
 };
 
 mainWindow_t::~mainWindow_t() = default;
@@ -31,6 +33,11 @@ mainWindow_t::mainWindow_t (QString qmlPath_, QObject *const parent_) : QObject 
     m_d = std::make_unique<mainWindow_t::privateData_t>();
     m_d->qmlPath = QUrl(qmlPath_);
     qmlRegisterSingletonInstance<qtgit::logModel_t>("com.test.LogModel", 1, 0, "GitLogModel", m_d->controller.model());
+
+    m_d->repoDialog.setFileMode (QFileDialog::Directory);
+    m_d->repoDialog.setOption (QFileDialog::ShowDirsOnly);
+    m_d->repoDialog.setHidden (true);
+    connect(&m_d->repoDialog, &QFileDialog::fileSelected, this, &mainWindow_t::handleLoadFolder);
 }
 
 bool mainWindow_t::init()
@@ -42,6 +49,7 @@ bool mainWindow_t::init()
 
     auto root = m_d->engine.rootObjects ().at (0);
     connect (root, SIGNAL(loadGitFolder(QString)), this, SLOT(handleLoadFolder(QString)));
+    connect (root, SIGNAL(openRepoPathDialog()), this, SLOT(handleOpenRepoPathDialog()));
 
     return true;
 }
@@ -54,4 +62,7 @@ void mainWindow_t::handleLoadFolder(QString path_)
     m_d->controller.loadPath (path_);
 }
 
-
+void mainWindow_t::handleOpenRepoPathDialog()
+{
+    m_d->repoDialog.show ();
+}

@@ -31,6 +31,7 @@ public:
 
 signals:
     void onLogReport (logModel_t const &commits_) const;
+    void onError (QString error_) const;
 
 private:
 	struct privateData_t;

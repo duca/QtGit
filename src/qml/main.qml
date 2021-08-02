@@ -11,7 +11,7 @@ ApplicationWindow {
     height: 480
     title: qsTr("QtGit - a Git client using Qt")
 
-    signal loadGitFolder(path: string)
+    signal openRepoPathDialog()
 
     menuBar: MenuBar {
         Menu {
@@ -77,7 +77,11 @@ ApplicationWindow {
             MenuItem {
                 id: addFolder
                 text: qsTr("Add existing folder")
-                onTriggered: repoDialog.open()
+                onTriggered: {
+                    appWindow.openRepoPathDialog()
+                    logView.visible = true
+                    noRepoLabel.visible = false
+                }
             }
 
             MenuItem {
@@ -135,26 +139,5 @@ ApplicationWindow {
         model: GitLogModel
         visible: false
     }
-
-    Dialog {
-        id: repoDialog
-        RowLayout {
-
-            Label {
-                text: qsTr ("Repository Path:")
-            }
-            TextField {
-                id: pathInput
-                placeholderText: qsTr("")
-            }
-        }
-        standardButtons: Dialog.Ok | Dialog.Cancel
-        onAccepted: {
-            logView.visible = true
-            noRepoLabel.visible = false
-            loadGitFolder(pathInput.text)
-        }
-    }
-
 }
 

@@ -12,6 +12,8 @@ using namespace cppgit2;
 #include <QQmlContext>
 #include <QSharedPointer>
 #include <QDateTime>
+#include <QDir>
+#include <QString>
 
 using namespace qtgit;
 
@@ -36,20 +38,33 @@ void logController_t::show ()
 //void logController_t::loadPath(cppgit2::repository& repo_)
 void logController_t::loadPath(QString repo_)
 {
+    auto dir = QDir(repo_+ "/.git");
+    if (!dir.exists ())
+    {
+        emit onError (tr("Invalid path"));
+        return;
+    }
+
     m_d->model.clear ();
+
+    QList<qtgit::logModel_t::logItem_t> commits;
 
     auto repo = cppgit2::repository::open(repo_.toStdString ());
 
-    repo.for_each_commit ([this](cppgit2::commit const& c_){
+    repo.for_each_commit ([&commits, this](cppgit2::commit const& c_){
         qtgit::logModel_t::logItem_t item;
         item.id = QString::fromStdString (c_.id().to_hex_string (8));
         item.userName = QString::fromStdString(c_.committer ().name ());
         item.userEmail = QString::fromStdString(c_.committer ().email ());
         item.summary = QString::fromStdString(c_.summary ());
-        item.body = QString::fromStdString (c_.body ());
+        item.body = QString::fromStdString (c_.body ());        
         item.date = QDateTime::fromMSecsSinceEpoch (c_.time (), Qt::LocalTime, c_.time_offset () * 60).toString ();
-        m_d->model.appendCommit (std::move(item));
+        commits.emplaceBack(std::move(item));
     });
+
+    m_d->model.appendCommits (std::move(commits));
+
+    emit onLogReport (m_d->model);
 }
 
 logModel_t* logController_t::model ()

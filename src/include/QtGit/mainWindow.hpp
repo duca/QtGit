@@ -21,6 +21,7 @@ public:
 
 public slots:
     void handleLoadFolder (QString path_);
+    void handleOpenRepoPathDialog ();
 
 private:
     struct privateData_t;
