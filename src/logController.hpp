@@ -28,7 +28,7 @@ public:
      */
     explicit logController_t(QObject *const parent_ = nullptr);
 
-    virtual ~logController_t ();
+    ~logController_t () override;
 
     /**
      * @brief loadPath - reads all the commits in a repository path

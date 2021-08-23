@@ -33,13 +33,6 @@ logController_t::logController_t(QObject *const parent_) : QObject (parent_)
 //void logController_t::loadPath(cppgit2::repository& repo_)
 void logController_t::loadPath(QString repo_)
 {
-    auto dir = QDir(repo_+ "/.git");
-    if (!dir.exists ())
-    {
-        emit onError (tr("Invalid path"));
-        return;
-    }
-
     m_d->model.clear ();
 
     QList<qtgit::logModel_t::logItem_t> commits;

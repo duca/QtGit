@@ -15,9 +15,8 @@ Component {
         Text {
             text: parent.section
             font.bold: true
-            font.pixelSize: 22
-            color: "red"
+            font.pixelSize: 18
+            color: "black"
         }
     }
 }
-

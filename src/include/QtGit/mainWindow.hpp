@@ -5,6 +5,7 @@
 #pragma once
 
 #include <QObject>
+#include <QString>
 #include <memory>
 
 namespace qtgit {
@@ -22,6 +23,9 @@ public:
 public slots:
     void handleLoadFolder (QString path_);
     void handleOpenRepoPathDialog ();
+
+signals:
+    void createNewRepo(QString path_) const;
 
 private:
     struct privateData_t;

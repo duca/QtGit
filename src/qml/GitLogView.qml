@@ -17,5 +17,5 @@ ListView {
         id: headerDelegate
     }
 
-    ScrollBar.vertical: ScrollBar { }
+    ScrollBar.vertical: ScrollBar {}
 }

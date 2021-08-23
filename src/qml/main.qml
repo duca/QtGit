@@ -11,17 +11,12 @@ ApplicationWindow {
     height: 480
     title: qsTr("QtGit - a Git client using Qt")
 
-    signal openRepoPathDialog()
+    signal openRepoPathDialog
 
     menuBar: MenuBar {
         Menu {
             id: fileMenu
             title: qsTr("File")
-
-            MenuItem {
-                id: shortcuts
-                text: qsTr("Keyboard Shortcuts")
-            }
 
             MenuItem {
                 id: sshkey
@@ -36,7 +31,7 @@ ApplicationWindow {
         }
 
         Menu {
-            title: qsTr("Main flow")
+            title: qsTr("Local")
             id: mainFlowMenu
 
             MenuItem {
@@ -44,12 +39,12 @@ ApplicationWindow {
                 text: qsTr("Commit")
             }
 
-            MenuItem{
+            MenuItem {
                 id: merge
                 text: qsTr("Merge")
             }
 
-            MenuItem{
+            MenuItem {
                 id: stash
                 text: qsTr("Stash")
             }
@@ -68,11 +63,17 @@ ApplicationWindow {
                 id: revert
                 text: qsTr("Revert")
             }
+
+            MenuItem {
+                id: createNew
+                text: qsTr("Create new repo")
+                // onTriggered: openDialog.open()
+            }
         }
 
         Menu {
-            title: qsTr("Repo Config")
-            id:repoConfig
+            title: qsTr("Remote")
+            id: repoConfig
 
             MenuItem {
                 id: addFolder
@@ -90,12 +91,6 @@ ApplicationWindow {
             }
 
             MenuItem {
-                id: createNew
-                text: qsTr("Create new repo")
-                // onTriggered: openDialog.open()
-            }
-
-            MenuItem {
                 id: setRemote
                 text: qsTr("Set Remote")
                 //  onTriggered: saveDialog.open()
@@ -110,14 +105,18 @@ ApplicationWindow {
                 text: qsTr("Submodules")
             }
         }
-        Menu
-        {
+        Menu {
             title: qsTr("Help")
             id: helpMenu
 
             MenuItem {
                 id: about
                 text: qsTr("About")
+            }
+
+            MenuItem {
+                id: shortcuts
+                text: qsTr("Keyboard Shortcuts")
             }
 
             MenuItem {
@@ -139,5 +138,17 @@ ApplicationWindow {
         model: GitLogModel
         visible: false
     }
-}
 
+    RepositoryView {
+        id: repositoryView
+        anchors.fill: parent
+    }
+
+    Connections {
+        target: MainWindow_t
+        function onCreateNewRepo(path) {
+            console.log("Enable repository view")
+            console.log(path)
+        }
+    }
+}

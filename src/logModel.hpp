@@ -45,7 +45,7 @@ public:
         QString type;
 	};
 
-	virtual ~logModel_t ();
+    ~logModel_t () override;
 
     /**
      * @brief logModel_t constructor

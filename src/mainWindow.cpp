@@ -47,19 +47,36 @@ bool mainWindow_t::init()
     if (m_d->engine.rootObjects().isEmpty())
         return false;
 
+    m_d->engine.rootContext ()->setContextProperty (QStringLiteral ("MainWindow_t"), this);
+
     auto root = m_d->engine.rootObjects ().at (0);
-    connect (root, SIGNAL(loadGitFolder(QString)), this, SLOT(handleLoadFolder(QString)));
+    //connect (root, SIGNAL(loadGitFolder(QString)), this, SLOT(handleLoadFolder(QString)));
     connect (root, SIGNAL(openRepoPathDialog()), this, SLOT(handleOpenRepoPathDialog()));
+    //connect (this, SIGNAL(onError()), root, SLOT(handleErrorMessage()));
 
     return true;
 }
 
 void mainWindow_t::handleLoadFolder(QString path_)
 {
+    auto rootDir = QDir(path_);
+    if (rootDir.exists ())
+    {
+        auto gitDir = QDir(path_+ "/.git");
+        if (gitDir.exists ())
+            m_d->controller.loadPath (path_);
+        else {
+            emit createNewRepo (path_);
+            qInfo("Handle load folder");
+        }
+    } else {
+        qInfo("Folder does not exists");
+    }
+
 //    qDebug("Path_ %s", path_.toStdString ().c_str ());
 //    m_d->repository = cppgit2::repository::open(path_.toStdString ());
 //    m_d->controller.loadPath (m_d->repository);
-    m_d->controller.loadPath (path_);
+
 }
 
 void mainWindow_t::handleOpenRepoPathDialog()
