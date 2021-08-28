@@ -6,8 +6,12 @@ ListView {
     anchors.fill: parent
     focus: true
 
+    signal pressAndHold(int index)
+
     delegate: GitLogDelegate {
         id: delegate
+        width: logView.width
+        onPressAndHold: logView.pressAndHold(index)
     }
     model: GitLogModel
 

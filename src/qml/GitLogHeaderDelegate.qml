@@ -6,7 +6,7 @@ Component {
     id: headerDelegate
 
     Rectangle {
-        width: container.width
+        width: childrenRect.width
         height: childrenRect.height
         color: "black"
 
