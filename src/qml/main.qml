@@ -4,6 +4,7 @@ import com.test.LogModel 1.0
 import com.test.MainWindow 1.0
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls.Universal 2.12
 
 ApplicationWindow {
     id: appWindow
@@ -11,6 +12,9 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("QtGit - a Git client using Qt")
+
+    Universal.theme: Universal.Dark
+    Universal.accent: Universal.Teal
 
     property int currentEntry: -1
     property string errorMessage: ""
