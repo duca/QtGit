@@ -1,4 +1,4 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
+ /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
@@ -33,6 +33,7 @@ mainWindow_t::mainWindow_t (QString qmlPath_, QObject *const parent_) : QObject 
     m_d = std::make_unique<mainWindow_t::privateData_t>();
     m_d->qmlPath = QUrl(qmlPath_);
     qmlRegisterSingletonInstance<qtgit::logModel_t>("com.test.LogModel", 1, 0, "GitLogModel", m_d->controller.model());
+    qmlRegisterSingletonInstance<qtgit::mainWindow_t>("com.test.MainWindow", 1, 0, "MainWindow", this);
 
     m_d->repoDialog.setFileMode (QFileDialog::Directory);
     m_d->repoDialog.setOption (QFileDialog::ShowDirsOnly);
@@ -47,11 +48,16 @@ bool mainWindow_t::init()
     if (m_d->engine.rootObjects().isEmpty())
         return false;
 
-    m_d->engine.rootContext ()->setContextProperty (QStringLiteral ("MainWindow_t"), this);
+    //m_d->engine.rootContext ()->setContextProperty (QStringLiteral ("MainWindow_t"), this);
 
     auto root = m_d->engine.rootObjects ().at (0);
     //connect (root, SIGNAL(loadGitFolder(QString)), this, SLOT(handleLoadFolder(QString)));
     connect (root, SIGNAL(openRepoPathDialog()), this, SLOT(handleOpenRepoPathDialog()));
+    connect (root, SIGNAL(cherryPick(QString)), this, SLOT(handleCherryPick(QString)));
+    connect (root, SIGNAL(branchOut(QString)), this, SLOT(handleBranchOut(QString)));
+    connect (root, SIGNAL(revertCommit(QString)), this, SLOT(handleRevertCommit(QString)));
+    connect (root, SIGNAL(createNewRepo(QString,QString,bool,bool,bool)), this, SLOT(createNewRepository(QString,QString,bool,bool,bool)));
+
     //connect (this, SIGNAL(onError()), root, SLOT(handleErrorMessage()));
 
     return true;
@@ -73,6 +79,8 @@ void mainWindow_t::handleLoadFolder(QString path_)
         qInfo("Folder does not exists");
     }
 
+
+
 //    qDebug("Path_ %s", path_.toStdString ().c_str ());
 //    m_d->repository = cppgit2::repository::open(path_.toStdString ());
 //    m_d->controller.loadPath (m_d->repository);
@@ -82,4 +90,23 @@ void mainWindow_t::handleLoadFolder(QString path_)
 void mainWindow_t::handleOpenRepoPathDialog()
 {
     m_d->repoDialog.show ();
+}
+
+void mainWindow_t::handleBranchOut (QString id_)
+{
+    qInfo("Branch %s", id_.toStdString ().c_str ());
+    emit reportError("zoeira mano");
+}
+void mainWindow_t::handleCherryPick (QString id_)
+{
+qInfo("Cherry %s", id_.toStdString ().c_str ());
+}
+void mainWindow_t::handleRevertCommit (QString id_)
+{
+qInfo("Revert %s", id_.toStdString ().c_str ());
+}
+
+void mainWindow_t::createNewRepository (QString name_, QString url_, bool genReadme_, bool genLicense_, bool genIgnore_)
+{
+    qInfo("create new repo");
 }

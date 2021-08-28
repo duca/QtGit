@@ -1,6 +1,7 @@
 import QtQuick.Dialogs
-import QtQuick.Controls
+import QtQuick.Controls 2.12
 import com.test.LogModel 1.0
+import com.test.MainWindow 1.0
 import QtQuick
 import QtQuick.Layouts
 
@@ -11,7 +12,14 @@ ApplicationWindow {
     height: 480
     title: qsTr("QtGit - a Git client using Qt")
 
+    property int currentEntry: -1
+    property string errorMessage: ""
+
     signal openRepoPathDialog
+    signal cherryPick(string id)
+    signal branchOut(string id)
+    signal revertCommit(string id)
+    signal createNewRepo(string name, string url, bool genReadme, bool genLicense, bool genIgnore)
 
     menuBar: MenuBar {
         Menu {
@@ -138,17 +146,87 @@ ApplicationWindow {
         model: GitLogModel
         visible: false
     }
+    Connections {
+        target: logView
+        function onPressAndHold(index) {
+            currentEntry = index
+            logEntryMenu.open()
+            console.log("Long press detected")
+        }
+    }
+
+    Menu {
+        id: logEntryMenu
+        x: parent.width / 2 - width / 2
+        y: parent.height / 2 - height / 2
+        modal: true
+
+        Label {
+            padding: 10
+            font.bold: true
+            width: parent.width
+            horizontalAlignment: Qt.AlignHCenter
+            text: currentEntry >= 0 ? logView.model.get(
+                                          currentEntry).commitId : ""
+        }
+        MenuItem {
+            text: qsTr("Branch out")
+            onTriggered: appWindow.branchOut(logView.model.get(
+                                                 currentEntry).commitId)
+        }
+
+        MenuItem {
+            text: qsTr("Cherry pick")
+            onTriggered: appWindow.cherryPick(logView.model.get(
+                                                  currentEntry).commitId)
+        }
+
+        MenuItem {
+            text: qsTr("Revert")
+            onTriggered: appWindow.revertCommit(logView.model.get(
+                                                    currentEntry).commitId)
+        }
+    }
 
     RepositoryView {
         id: repositoryView
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height / 2
+        onAccepted: {
+            appWindow.createNewRepo(repositoryView.name, repositoryView.url,
+                                    repositoryView.genReadme,
+                                    repositoryView.genLicense,
+                                    repositoryView.genIgnore)
+        }
+    }
+
+    Dialog {
+        id: errorDialog
+        title: qsTr("Error!")
+        width: 120
+        modal: true
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        contentItem: Rectangle {
+            Label {
+                text: errorMessage
+            }
+        }
     }
 
     Connections {
-        target: MainWindow_t
+        target: MainWindow
         function onCreateNewRepo(path) {
             console.log("Enable repository view")
             console.log(path)
+            repositoryView.open()
+        }
+    }
+
+    Connections {
+        target: MainWindow
+        function onReportError(message) {
+            errorMessage = message
+            errorDialog.open()
         }
     }
 }

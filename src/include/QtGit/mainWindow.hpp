@@ -23,9 +23,14 @@ public:
 public slots:
     void handleLoadFolder (QString path_);
     void handleOpenRepoPathDialog ();
+    void handleBranchOut (QString id_);
+    void handleCherryPick (QString id_);
+    void handleRevertCommit (QString id_);
+    void createNewRepository (QString name_, QString url_, bool genReadme_, bool genLicense_, bool genIgnore_);
 
 signals:
     void createNewRepo(QString path_) const;
+    void reportError (QString message_) const;
 
 private:
     struct privateData_t;
