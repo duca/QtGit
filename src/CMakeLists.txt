@@ -4,12 +4,14 @@ set(CMAKE_AUTORCC ON)
 
 add_executable(QtGit
     QtGit.qrc
-    main.cpp    
+    main.cpp
     mainWindow.cpp
     logModel.cpp
     logModel.hpp
     logController.cpp
     logController.hpp
+    stageModel.hpp
+    stageModel.cpp
     ${PROJECT_SOURCE_DIR}/${TS_FILES}
     ${QT_RESOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/include/QtGit/mainWindow.hpp

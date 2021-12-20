@@ -26,8 +26,9 @@ struct logController_t::privateData_t
 logController_t::~logController_t () = default;
 
 logController_t::logController_t(QObject *const parent_) : QObject (parent_)
-{	
+{
     m_d = std::make_unique<logController_t::privateData_t>();
+    qmlRegisterSingletonInstance<logModel_t>("com.test.LogModel", 1, 0, "GitLogModel", &m_d->model);
 }
 
 //void logController_t::loadPath(cppgit2::repository& repo_)
@@ -59,9 +60,4 @@ void logController_t::loadPath(QString repo_)
     });
 
     m_d->model.appendCommits (std::move(commits));
-}
-
-logModel_t* logController_t::model ()
-{
-    return &m_d->model;
 }

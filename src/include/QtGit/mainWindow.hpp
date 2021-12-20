@@ -20,13 +20,13 @@ public:
 
     bool init();
 
-public slots:
-    void handleLoadFolder (QString path_);
-    void handleOpenRepoPathDialog ();
-    void handleBranchOut (QString id_);
-    void handleCherryPick (QString id_);
-    void handleRevertCommit (QString id_);
-    void createNewRepository (QString name_, QString url_, bool genReadme_, bool genLicense_, bool genIgnore_);
+    Q_INVOKABLE void loadFolder (QString path_);
+    Q_INVOKABLE void openRepoPathDialog ();
+    Q_INVOKABLE void branchOut (QString id_);
+    Q_INVOKABLE void cherryPick (QString id_);
+    Q_INVOKABLE void revertCommit (QString id_);
+    Q_INVOKABLE void createNewRepository (
+        QString name_, QString url_, bool genReadme_, bool genLicense_, bool genIgnore_);
 
 signals:
     void createNewRepo(QString path_) const;

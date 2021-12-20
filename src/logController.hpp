@@ -36,12 +36,6 @@ public:
      */
     void loadPath (QString repo_);
 
-    /**
-     * @brief model address. Used to connect C++ code with QML
-     * @return model address
-     */
-    logModel_t* model ();
-
 signals:
     /**
      * @brief onError - report error messages
@@ -50,8 +44,8 @@ signals:
     void onError (QString error_) const;
 
 private:
-	struct privateData_t;
-	std::unique_ptr<privateData_t> m_d;
+    struct privateData_t;
+    std::unique_ptr<privateData_t> m_d;
 };
 
 }

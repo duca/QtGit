@@ -1,9 +1,9 @@
-import QtQuick.Dialogs
+import QtQuick.Dialogs 1.12
 import QtQuick.Controls 2.12
 import com.test.LogModel 1.0
 import com.test.MainWindow 1.0
-import QtQuick
-import QtQuick.Layouts
+import QtQuick 2.12
+import QtQuick.Layouts 1.12
 import QtQuick.Controls.Universal 2.12
 
 ApplicationWindow {
@@ -18,12 +18,6 @@ ApplicationWindow {
 
     property int currentEntry: -1
     property string errorMessage: ""
-
-    signal openRepoPathDialog
-    signal cherryPick(string id)
-    signal branchOut(string id)
-    signal revertCommit(string id)
-    signal createNewRepo(string name, string url, bool genReadme, bool genLicense, bool genIgnore)
 
     menuBar: MenuBar {
         Menu {
@@ -45,6 +39,16 @@ ApplicationWindow {
         Menu {
             title: qsTr("Local")
             id: mainFlowMenu
+
+            MenuItem {
+                id: addFolder
+                text: qsTr("Add existing folder")
+                onTriggered: {
+                    MainWindow.openRepoPathDialog()
+                    logView.visible = true
+                    noRepoLabel.visible = false
+                }
+            }
 
             MenuItem {
                 id: commit
@@ -86,16 +90,6 @@ ApplicationWindow {
         Menu {
             title: qsTr("Remote")
             id: repoConfig
-
-            MenuItem {
-                id: addFolder
-                text: qsTr("Add existing folder")
-                onTriggered: {
-                    appWindow.openRepoPathDialog()
-                    logView.visible = true
-                    noRepoLabel.visible = false
-                }
-            }
 
             MenuItem {
                 id: clone
@@ -175,20 +169,20 @@ ApplicationWindow {
         }
         MenuItem {
             text: qsTr("Branch out")
-            onTriggered: appWindow.branchOut(logView.model.get(
-                                                 currentEntry).commitId)
-        }
-
-        MenuItem {
-            text: qsTr("Cherry pick")
-            onTriggered: appWindow.cherryPick(logView.model.get(
+            onTriggered: MainWindow.branchOut(logView.model.get(
                                                   currentEntry).commitId)
         }
 
         MenuItem {
+            text: qsTr("Cherry pick")
+            onTriggered: MainWindow.cherryPick(logView.model.get(
+                                                   currentEntry).commitId)
+        }
+
+        MenuItem {
             text: qsTr("Revert")
-            onTriggered: appWindow.revertCommit(logView.model.get(
-                                                    currentEntry).commitId)
+            onTriggered: MainWindow.revertCommit(logView.model.get(
+                                                     currentEntry).commitId)
         }
     }
 
@@ -197,10 +191,10 @@ ApplicationWindow {
         width: parent.width
         height: parent.height / 2
         onAccepted: {
-            appWindow.createNewRepo(repositoryView.name, repositoryView.url,
-                                    repositoryView.genReadme,
-                                    repositoryView.genLicense,
-                                    repositoryView.genIgnore)
+            MainWindow.createNewRepo(repositoryView.name, repositoryView.url,
+                                     repositoryView.genReadme,
+                                     repositoryView.genLicense,
+                                     repositoryView.genIgnore)
         }
     }
 

@@ -32,13 +32,12 @@ mainWindow_t::mainWindow_t (QString qmlPath_, QObject *const parent_) : QObject 
 {
     m_d = std::make_unique<mainWindow_t::privateData_t>();
     m_d->qmlPath = QUrl(qmlPath_);
-    qmlRegisterSingletonInstance<qtgit::logModel_t>("com.test.LogModel", 1, 0, "GitLogModel", m_d->controller.model());
     qmlRegisterSingletonInstance<qtgit::mainWindow_t>("com.test.MainWindow", 1, 0, "MainWindow", this);
 
     m_d->repoDialog.setFileMode (QFileDialog::Directory);
     m_d->repoDialog.setOption (QFileDialog::ShowDirsOnly);
     m_d->repoDialog.setHidden (true);
-    connect(&m_d->repoDialog, &QFileDialog::fileSelected, this, &mainWindow_t::handleLoadFolder);
+    connect (&m_d->repoDialog, &QFileDialog::fileSelected, this, &mainWindow_t::loadFolder);
 }
 
 bool mainWindow_t::init()
@@ -52,18 +51,13 @@ bool mainWindow_t::init()
 
     auto root = m_d->engine.rootObjects ().at (0);
     //connect (root, SIGNAL(loadGitFolder(QString)), this, SLOT(handleLoadFolder(QString)));
-    connect (root, SIGNAL(openRepoPathDialog()), this, SLOT(handleOpenRepoPathDialog()));
-    connect (root, SIGNAL(cherryPick(QString)), this, SLOT(handleCherryPick(QString)));
-    connect (root, SIGNAL(branchOut(QString)), this, SLOT(handleBranchOut(QString)));
-    connect (root, SIGNAL(revertCommit(QString)), this, SLOT(handleRevertCommit(QString)));
-    connect (root, SIGNAL(createNewRepo(QString,QString,bool,bool,bool)), this, SLOT(createNewRepository(QString,QString,bool,bool,bool)));
-
     //connect (this, SIGNAL(onError()), root, SLOT(handleErrorMessage()));
 
     return true;
 }
 
-void mainWindow_t::handleLoadFolder(QString path_)
+void
+mainWindow_t::loadFolder (QString path_)
 {
     auto rootDir = QDir(path_);
     if (rootDir.exists ())
@@ -87,21 +81,25 @@ void mainWindow_t::handleLoadFolder(QString path_)
 
 }
 
-void mainWindow_t::handleOpenRepoPathDialog()
+void
+mainWindow_t::openRepoPathDialog ()
 {
     m_d->repoDialog.show ();
 }
 
-void mainWindow_t::handleBranchOut (QString id_)
+void
+mainWindow_t::branchOut (QString id_)
 {
     qInfo("Branch %s", id_.toStdString ().c_str ());
     emit reportError("zoeira mano");
 }
-void mainWindow_t::handleCherryPick (QString id_)
+void
+mainWindow_t::cherryPick (QString id_)
 {
 qInfo("Cherry %s", id_.toStdString ().c_str ());
 }
-void mainWindow_t::handleRevertCommit (QString id_)
+void
+mainWindow_t::revertCommit (QString id_)
 {
 qInfo("Revert %s", id_.toStdString ().c_str ());
 }
